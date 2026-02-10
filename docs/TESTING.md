@@ -187,14 +187,24 @@ Add the annotation to the integration test:
 class SomeIntegrationTest
 ```
 
-## Other
-
-### @DataJdbcTest
-
-To test repositories in separation
+### @DataJdbcTest to test repositories
 
 ```kotlin
 @DataJdbcTest
 @ActiveProfiles("test")
 class UserRepositoryIntegrationTest
 ```
+
+## Testing pyramid
+
+![img_1.png](img_1.png)
+
+1. Unit tests (MockK, no Spring): 70–90%
+2. Repository integration tests (@DataJdbcTest + DB in container): 10–25%
+3. Service integration tests (@SpringBootTest): test business logic/flow with transactional behavior
+4. Controller/web tests: if you need serialization/deserialization/routing behavior
+
+TODO:
+
+1. localstack what and why
+2. localstack SH and configuration in the repo
