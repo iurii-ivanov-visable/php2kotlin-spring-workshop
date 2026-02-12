@@ -204,7 +204,21 @@ class UserRepositoryIntegrationTest
 3. Service integration tests (@SpringBootTest): test business logic/flow with transactional behavior
 4. Controller/web tests: if you need serialization/deserialization/routing behavior
 
-TODO:
+## Testing with AWS services
 
-1. localstack what and why
-2. localstack SH and configuration in the repo
+To mock AWS Services in testing, we usually use Localstack.
+
+```sh
+#!/bin/sh
+
+if ! command -v awslocal &>/dev/null; then
+  alias awslocal="aws --endpoint-url=${SNS_ENDPOINT}"
+fi
+
+awslocal sns create-topic --name "${CONVERSATIONS_NOTIFICATIONS_SNS_TOPIC_ARN}"
+awslocal sqs create-queue --queue-name "${CONVERSATIONS_NOTIFICATIONS}"
+awslocal sns subscribe --topic-arn "arn:aws:sns:eu-central-1:${CONVERSATIONS_NOTIFICATIONS_SNS_TOPIC_ARN}" \
+  --protocol sqs --notification-endpoint "http://localhost:4566/000000000000/${CONVERSATIONS_NOTIFICATIONS}"
+```
+
+Variables are taken from `application.yaml` (or `application-test.yaml`).

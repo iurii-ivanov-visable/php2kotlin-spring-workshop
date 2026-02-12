@@ -417,6 +417,20 @@ spring:
     driver-class-name: org.postgresql.Driver
 ```
 
-TODO:
-1. add @Query annotation and @Modifying
-2. 
+## 8. @Query
+
+It is also allowed to write SQL quires inside the Repository.
+
+```kotlin
+interface RfqCoreEntityRepository : CrudRepository<RfqCoreEntity, UUID> {
+    @Query("select * from rfq_core where rfq_id = :rfqId and status = :status")
+    fun findRfqInStatus(
+        @Param("rfqId") rfqId: UUID,
+        @Param("status") status: RFQStatus,
+    ): RfqCoreEntity?
+    
+    @Modifying
+    @Query("delete from rfq_core where rfq_id = :rfqId and status <> 'PROCESSED'")
+    fun deleteRfqIfNotProcessed(rfqId: UUID)
+}
+```
