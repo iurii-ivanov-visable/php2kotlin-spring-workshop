@@ -232,3 +232,11 @@ Rule of thumb: Controller = request/response mapping + validation + delegation t
 ### 4. Consider using versioning of APIs
 
 For example, `/api/v1/...`
+
+## Out of scope
+
+1. OpenAPI/Swagger
+
+## Sources
+
+https://www.marcobehler.com/guides/spring-framework#_springs_aspect_oriented_programming_aop

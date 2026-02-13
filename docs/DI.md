@@ -10,6 +10,16 @@ Spring is just an IoC container.
 
 Dependency Injection (DI) is the mechanism used to implement IoC.
 
+How it works:
+```mermaid
+graph TD
+    A[Application Starts] --> B[Spring Boot Scans Annotations]
+    B --> C[Creates ApplicationContext]
+    C --> D[Registers Beans]
+    D --> E[Injects Dependencies]
+    E --> F[Application Runs]
+```
+
 ## 2. Why
 
 Without DI:
@@ -35,7 +45,7 @@ class UserService(private val repo: JdbcUserRepository) {
 
 ## 3. DI in Spring
 
-Spring has ApplicationContext and a collection of beans:
+Spring has ApplicationContext and a collection of beans (Bean - Spring-managed object):
 
 ```kotlin
 @Bean
@@ -67,7 +77,7 @@ The flow:
 1. Spring loads beans definition: `@Configuration`, `@Bean` and other stereotypes (`@Component`, `@Service`,
    `@Repository`)
 2. Instantiation of beans (loading them into the Context aka Container): via constructor injections primarily (usually
-   happens once, bean is a singleton by default)
+   happens once, bean is a singleton by default; to change, foes example, `@Scope("prototype")`)
 3. Dependency injection: via constructor or using annotations `@Autowired`, `@Inject`, `@Value` ... (or field
    injections)
 4. BeanPostProcessor before init: all registered BeanPostProcessors are invoked (
@@ -185,3 +195,9 @@ fun setUp() {
 ```
 
 Bean is mocked and injected during test suite execution.
+
+## Sources
+
+https://www.marcobehler.com/guides/spring-framework#_springs_aspect_oriented_programming_aop \
+https://dev.to/wittedtech-by-harshit/the-magic-of-spring-boots-inversion-of-control-ioc-361j \
+https://www.baeldung.com/inversion-control-and-dependency-injection-in-spring

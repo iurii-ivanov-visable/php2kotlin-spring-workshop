@@ -1,8 +1,8 @@
 plugins {
-    kotlin("jvm") version "2.2.21"
+    kotlin("jvm") version "2.2.21" // kotlin compiler plugin (compiles .kt to JVM bytecode)
     kotlin("plugin.spring") version "2.2.21"
-    id("org.springframework.boot") version "3.5.0"
-    id("io.spring.dependency-management") version "1.1.7"
+    id("org.springframework.boot") version "3.5.0" // creates executable JAR
+    id("io.spring.dependency-management") version "1.1.7" // imports BOM so the versions of Spring Boot dependencies applied automatically
 }
 
 group = "org.example"
@@ -42,6 +42,7 @@ kotlin {
     }
 }
 
+// run tests using JUnit5 on :test
 tasks.withType<Test> {
     useJUnitPlatform()
 }

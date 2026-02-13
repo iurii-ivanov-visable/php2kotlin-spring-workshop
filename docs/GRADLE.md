@@ -28,6 +28,8 @@ dependencies {
 }
 ```
 
+NOTE: you can use `gradle init` CLI command in an empty project and then add all the dependencies manually.
+
 ### implementation vs testImplementation
 
 **implementation** is used in production code
@@ -126,3 +128,7 @@ dependencies {
 ```
 
 For example when replacing Tomcat with Netty.
+
+## Sources
+
+https://www.baeldung.com/spring-maven-bom

@@ -198,3 +198,7 @@ supplierFactsServiceClient
     .retrieve()
     .body(CompanyDetailsResponse::class.java)
 ```
+
+## Sources
+
+https://docs.spring.io/spring-security/reference/6.5/servlet/getting-started.html

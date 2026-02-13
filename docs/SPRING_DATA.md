@@ -282,6 +282,16 @@ class UserService(private val userRepository: UserRepository) {
 }
 ```
 
+```kotlin
+@Entity
+data class User(
+    @Id
+    val id: Long?,
+    val email: String,
+    val fullName: String,
+)
+```
+
 Spring Data JDBC:
 
 1. generates repository implementations
@@ -310,6 +320,17 @@ class UserRepository extends ServiceEntityRepository
             ->getQuery()
             ->getOneOrNullResult();
     }
+}
+```
+
+### Customizing JDBC Repositories
+
+For example, "findByFirstName" (similar to find by email).
+Spring Data JDBC will generate the query automatically:
+
+```kotlin
+interface UserRepository : CrudRepository<User, Long> {
+    fun findByFirstName(firstName: String): User?
 }
 ```
 
@@ -428,9 +449,14 @@ interface RfqCoreEntityRepository : CrudRepository<RfqCoreEntity, UUID> {
         @Param("rfqId") rfqId: UUID,
         @Param("status") status: RFQStatus,
     ): RfqCoreEntity?
-    
+
     @Modifying
     @Query("delete from rfq_core where rfq_id = :rfqId and status <> 'PROCESSED'")
     fun deleteRfqIfNotProcessed(rfqId: UUID)
 }
 ```
+
+## Source
+
+https://dev.to/sadiul_hakim/spring-data-jdbc-tutorial-1h6g
+https://thorben-janssen.com/spring-data-jdbc-getting-started/
